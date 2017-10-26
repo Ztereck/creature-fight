@@ -10,10 +10,26 @@ public class Pikachu extends Creature
 {
     public Pikachu( World w )
     {
-       super(700,2);
+       super(250,2, "Electric" );
        getImage(). scale( 150, 100);
        w.addObject(getHealthBar(), 450, w.getHeight() - 680 );
     }
+    
+    public void attack( int idx )
+    {
+       CreatureWorld world = (CreatureWorld)getWorld(); 
+       Creature enemy = world.getPlayerOne();
+        if( idx == 0 )
+        {
+            enemy.getHealthBar().add(-30);
+        }
+        else
+        {
+            enemy.getHealthBar().add(-65);
+        }
+        world.setTurnNumber(1);
+    }
+    
     /**
      * Act - do whatever the Pikachu wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
