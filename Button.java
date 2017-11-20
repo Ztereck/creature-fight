@@ -98,7 +98,7 @@ public class Button extends Actor
     {
         CreatureWorld world = (CreatureWorld)getWorld();
         Creature enemy;
-        if( getObjectsInRange(425, Creature.class).get(0).getPlayerOwnership() == 1)
+        if( getObjectsInRange(425, Creature.class).get(0).getWhetherPlayerOne() == true)
         {
             enemy = world.getPlayerTwo();
         }
