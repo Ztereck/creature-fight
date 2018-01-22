@@ -21,9 +21,9 @@ public class Creature extends Actor
      */
     public Creature()
     {
-       healthNumber = 500;
-       playerOneCreature = true;
-       creatureBar = new HealthBar ( healthNumber, healthNumber, 10 );
+        healthNumber = 500;
+        playerOneCreature = true;
+        creatureBar = new HealthBar ( healthNumber, healthNumber, 10 );
     }
 
     /**
@@ -35,20 +35,32 @@ public class Creature extends Actor
      */
     public Creature( int health, boolean isPlayerOne, String creatureType)
     {
-       healthNumber = health;
-       playerOneCreature = isPlayerOne;
-       creatureBar = new HealthBar ( healthNumber, healthNumber, 10 );
-       type = creatureType;
+        healthNumber = health;
+        playerOneCreature = isPlayerOne;
+        creatureBar = new HealthBar ( healthNumber, healthNumber, 10 );
+        type = creatureType;
     }
     
-    protected HealthBar getHealthBar ()
+    /**
+     * HealthBar getHealthBar gets the current creatures healthbar
+     * 
+     * @param there are no parameters
+     * @return the creatures health bar
+     */
+    protected HealthBar getHealthBar()
     {
         return creatureBar;
     }
     
+    /**
+     * getWhetherPlayerOne gets the current creature
+     * 
+     * @param there are no parameters
+     * @return the current player one creature
+     */
     public boolean getWhetherPlayerOne()
     {
-       return playerOneCreature;
+        return playerOneCreature;
     }
     
     /**
@@ -58,6 +70,28 @@ public class Creature extends Actor
      * @return Nothing is returned
      */
     public void attack( int idx )
+    {
+        
+    }
+    
+    /**
+     * attack is the code that is run when the Creature attacks its enemy
+     * 
+     * @param There are no parameters
+     * @return Nothing is returned
+     */
+    public void switchCreature( int idx )
+    {
+        
+    }
+    
+    /**
+     * attack is the code that is run when the Creature attacks its enemy
+     * 
+     * @param There are no parameters
+     * @return Nothing is returned
+     */
+    public void switchedIn()
     {
         
     }

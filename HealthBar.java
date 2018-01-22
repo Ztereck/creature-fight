@@ -250,5 +250,4 @@ public class HealthBar extends Actor
         //Change this
         return current;
     }
-
 }

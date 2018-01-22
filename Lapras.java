@@ -2,18 +2,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import javax.swing.JOptionPane;
 
 /**
- * Write a description of class Charmander here.
+ * Write a description of class Lapras here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Charmander extends Creature
+public class Lapras extends Creature
 {
-    public Charmander( World w )
+    public Lapras( World w )
     {
-        super(500,true, "Fire");
+        super(900,false, "Water" );
         getImage(). scale( 150, 100);
-        w.addObject(getHealthBar(), 300, w.getHeight() - 50 );
+        w.addObject(getHealthBar(), 100, 25 );
+        getHealthBar().getImage().setTransparency(0);
     }
     
     /**
@@ -24,28 +25,41 @@ public class Charmander extends Creature
      */
     public void attack( int idx )
     {
-        CreatureWorld world = (CreatureWorld)getWorld();
-        Creature enemy = world.getPlayerTwo();
+        CreatureWorld world = (CreatureWorld)getWorld(); 
+        Creature enemy = world.getPlayerOne();
         String enemyType = enemy.getType();
         attackAnimation();
         if( idx == 0 )
         {
-            enemy.getHealthBar().add(-25);
+            enemy.getHealthBar().add(-30);
         }
         else
         {
-            if( enemyType.equalsIgnoreCase ("Water"))
+            if( enemyType.equalsIgnoreCase("Fire") )
             {
-                enemy.getHealthBar().add(-70/2);
-                getWorld().showText( "Its not very effective...", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26 );
+                enemy.getHealthBar().add(-100*2);
+                getWorld().showText("it's super effective!", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26 );
+                Greenfoot.delay(30);
+            }
+            else if( enemyType.equalsIgnoreCase( "Rock" ) )
+            {
+                enemy.getHealthBar().add(-100*2);
+                getWorld().showText( "it's super effective!", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26 );
+                Greenfoot.delay(30);
+            }
+            else if( enemyType.equalsIgnoreCase( "Grass") )
+            {
+                enemy.getHealthBar().add(-100/2);
+                getWorld().showText( "it's not very effective...", getWorld().getWidth()/2, getWorld().getHeight()/2 + 26 );
                 Greenfoot.delay(30);
             }
             else
             {
-                enemy.getHealthBar().add(-70);
+                enemy.getHealthBar().add(-100);
+                Greenfoot.delay(30);
             }
         }
-        world.setTurnNumber(false);
+        world.setTurnNumber(true);
     }
     
     /**
@@ -61,10 +75,9 @@ public class Charmander extends Creature
         
         originalX = getX();
         originalY = getY();
-        
-        for( int i = 0; i < 15; i++)
+        for( int i = 0; i < 15; i++ )
         {
-            setLocation( getX() + 1, getY() - 2 );
+            setLocation( getX() - 1, getY() + 2 );
             Greenfoot.delay(1);
         }
         setLocation( originalX, originalY );
@@ -78,15 +91,15 @@ public class Charmander extends Creature
      */
     public void switchCreature( int idx )
     {
-        CreatureWorld world = (CreatureWorld)getWorld();
+        CreatureWorld world = (CreatureWorld)getWorld(); 
         Creature switchCreature;
         if( idx == 0 )
         {
-            switchCreature = world.getNewOneCreature(1);
+            switchCreature = world.getNewTwoCreature(0);
         }
         else
         {
-            switchCreature = world.getNewOneCreature(2);
+            switchCreature = world.getNewTwoCreature(2);
         }
         
         if( switchCreature.getHealthBar().getCurrent() <= 0 )
@@ -95,23 +108,23 @@ public class Charmander extends Creature
         }
         else
         {
-            while( getX() > 0 )
+            while( getX() < getWorld().getWidth() - 1 )
             {
-                setLocation( getX() - 5, getY() );
+                setLocation( getX() + 5, getY() );
                 Greenfoot.delay(2);
             }
             getImage().setTransparency(0);
             getHealthBar().getImage().setTransparency(0);
             if( idx == 0 )
             {
-               world.changePlayerOne( "Golem" );
+                world.changePlayerTwo( "Pikachu" );
             }
             else
             {
-                world.changePlayerOne( "Ivysaur" );
+                world.changePlayerTwo( "Pidgeot" );
             }
             switchCreature.switchedIn();
-            world.setTurnNumber(false);
+            world.setTurnNumber(true);
         }
     }
     
@@ -125,15 +138,15 @@ public class Charmander extends Creature
     {
         getImage().setTransparency(255);
         getHealthBar().getImage().setTransparency(255);
-        while( getX() < 75 )
+        while( getX() > 325 )
         {
-            setLocation( getX() + 5, getY() );
+            setLocation( getX() - 5, getY() );
             Greenfoot.delay(2);
         }
     }
     
     /**
-     * Act - do whatever the Charmander wants to do. This method is called whenever
+     * Act - do whatever the Pikachu wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() 
@@ -142,22 +155,22 @@ public class Charmander extends Creature
         CreatureWorld playerWorld = (CreatureWorld)getWorld();
         if( getHealthBar().getCurrent() <= 0 )
         {
-            getWorld().showText("Charmander Has Fainted",getWorld().getWidth()/2,getWorld().getHeight()/2 + 26);
+            getWorld().showText("Lapras has fainted!",getWorld().getWidth()/2,getWorld().getHeight()/2 + 26);
             Greenfoot.delay(30);
-            if( playerWorld.getNewOneCreature(1).getHealthBar().getCurrent() > 0 )
+            if( playerWorld.getNewTwoCreature(1).getHealthBar().getCurrent() > 0 )
             {
                 switchCreature(0);
-                playerWorld.setTurnNumber(true);
-                getWorld().showText("",getWorld().getWidth()/2,getWorld().getHeight()/2 + 26);
+                playerWorld.setTurnNumber(false);
+                getWorld().showText( "", getWorld().getWidth()/2, getWorld().getHeight()/2 );
                 getWorld().removeObject(this);
             }
-            else if( playerWorld.getNewOneCreature(2).getHealthBar().getCurrent() > 0 )
+            else if( playerWorld.getNewTwoCreature(2).getHealthBar().getCurrent() > 0 )
             {
                 switchCreature(1);
-                playerWorld.setTurnNumber(true);
-                getWorld().showText("",getWorld().getWidth()/2,getWorld().getHeight()/2 + 26);
+                playerWorld.setTurnNumber(false);
+                getWorld().showText( "", getWorld().getWidth()/2, getWorld().getHeight()/2 );
                 getWorld().removeObject(this);
             }
         }
-    }
+    }   
 }

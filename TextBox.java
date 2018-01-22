@@ -28,6 +28,12 @@ public class TextBox extends Actor
         display();
     }
     
+    /**
+     * display sets what the messages displayed will look like
+     * 
+     * @param there are no parameters
+     * @return nothin is returned
+     */
     public void display()
     {
         if( border == true )
@@ -35,15 +41,26 @@ public class TextBox extends Actor
             img.setColor( Color.BLACK );
             img.drawRect( 0, 0, img.getWidth() - 1,img.getHeight() - 1 );
         }
-        
         setImage( img );
     }
     
+    /**
+     * getText gets the text
+     * 
+     * @param there are no parameters
+     * @return text that should be displayed at a given moment
+     */
     public String getText()
     {
         return text;
     }
     
+    /**
+     * displays messages on the screen
+     * 
+     * @param message is equal to text
+     * @return nothin is returned
+     */
     public void setText( String message )
     {
         text = message;
